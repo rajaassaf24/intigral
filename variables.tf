@@ -19,6 +19,16 @@ variable "wordpress_infra_az_letter" {
   default = "b"
 }
 
+variable "rds_infra_az_letter" {
+  type = "string"
+  default = "a"
+}
+
+variable "elastic_infra_az_letter" {
+  type = "string"
+  default = "c"
+}
+
 variable "wordpress_vpc_cidr" {
   type = "string"
   default =  "192.168.0.0/16"
