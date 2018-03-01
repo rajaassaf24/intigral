@@ -23,7 +23,8 @@ locals {
   }
 
   wordpress_infra_az = "${lookup(local.availability_zones, var.wordpress_infra_az_letter)}"
-  elastic_infra_az = "${lookup(local.availability_zones, var.wordpress_infra_az_letter)}"
+  elastic_infra_az = "${lookup(local.availability_zones, var.elastic_infra_az_letter)}"
+  rds_infra_az = "${lookup(local.availability_zones, var.rds_infra_az_letter)}"
 
 }
 
