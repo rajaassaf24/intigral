@@ -50,27 +50,21 @@ variable "count_elastic" {
 }
 
 variable "es_domain" {
-  default = "enter domain name here"
+  default = "intigral"
 }
 
 variable "es_version" {
-  default = "enter elasticsearch version here"
+  default = "1.5"
 }
 
 variable "es_type" {
-  default = "enter es instance type here"
+  default = "t2.micro.elasticsearch"
 }
 
-variable "es_allow_explicit_indes" {
-  default = "true or false"
-}
-
-variable "es_policy" {
-  description = "List of IAM role ARNs from which to permit traffic (default ['*']).  Note that a client must match both the IP address and the IAM role patterns in order to be permitted access."
-  type        = "list"
-  default     = ["*"]
+variable "es_allow_explicit_index" {
+  default = "true"
 }
 
 variable "es_snapshot_hour" {
-  default = "enter here the hour at which snapshots should occur"
+  default = "22"
 }
