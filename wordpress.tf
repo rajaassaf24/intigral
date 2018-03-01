@@ -56,6 +56,7 @@ resource "aws_security_group_rule" "wordpress_https_in" {
 resource "aws_instance" "wordpress" {
   count = "${var.count_wordpress}"
   ami = "ami-638b6375"
+  associate_public_ip_address = "true"
   availability_zone = "${local.wordpress_infra_az}"
   instance_type = "t2.micro"
   key_name = "${aws_key_pair.raja.key_name}"
