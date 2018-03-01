@@ -13,6 +13,7 @@ resource "aws_vpc" "wordpress" {
 
 locals {
   wordpress_cidr = "${cidrsubnet("${aws_vpc.wordpress.cidr_block}", 4, 0)}"
+  rds_cidr = "${cidrsubnet("${aws_vpc.wordpress.cidr_block}", 4, 1)}"
 }
 
 resource "aws_subnet" "wordpress" {
@@ -22,6 +23,17 @@ resource "aws_subnet" "wordpress" {
 
   tags {
     Name = "WordpressSubnet"
+    Group = "Intigral"
+  }
+}
+
+resource "aws_subnet" "rds" {
+  vpc_id = "${aws_vpc.wordpress.id}"
+  cidr_block = "${local.rds_cidr}"
+  availability_zone = "${local.rds_infra_az}"
+
+  tags {
+    Name = "RDSSubnet"
     Group = "Intigral"
   }
 }
