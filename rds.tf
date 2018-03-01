@@ -44,6 +44,7 @@ resource "aws_db_instance" "rds" {
   engine_version = "5.6.37"
   instance_class = "db.t2.micro"
   availability_zone = "${local.rds_infra_az}"
+  skip_final_snapshot = "true"
   multi_az = "false"
   name = "wordpress"
   username = "wordpress"
