@@ -1,7 +1,9 @@
 # Compiled files
 *.tfstate
 *.tfstate.backup
-*.retry
 
+# ansible files
+*.retry
+ansible.log
 # Module directory
 .terraform/
