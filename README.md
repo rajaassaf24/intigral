@@ -22,3 +22,8 @@ Run terraform
 2- terraform plan
 
 3- terraform apply
+
+
+Ansible command to run
+
+ansible-playbook -i inventory/ec2.py --vault-password-file=<path to vault password> wordpress.yml
