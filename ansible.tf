@@ -1,11 +1,10 @@
 resource "null_resource" "wordpress" {    
     
   triggers {
+    host_id = "${join(",", aws_instance.wordpress.*.id)}"
     group = "wordpress"
-    host = "wordpress-${aws_instance.wordpress.id}"
-
-    host_var_internal_ip = "${aws_instance.wordpress.private_ip}"
-    host_var_ansible_host = "${aws_instance.wordpress.public_ip}"
+    host_var_internal_ip = "${join(",", aws_instance.wordpress.*.private_ip)}"
+    host = "${join(",", aws_instance.wordpress.*.public_ip)}"
   }
 
 }
