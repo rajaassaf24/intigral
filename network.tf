@@ -14,6 +14,7 @@ resource "aws_vpc" "wordpress" {
 locals {
   wordpress_cidr = "${cidrsubnet("${aws_vpc.wordpress.cidr_block}", 4, 0)}"
   rds_cidr = "${cidrsubnet("${aws_vpc.wordpress.cidr_block}", 4, 1)}"
+  elb_cidr = "${cidrsubnet("${aws_vpc.wordpress.cidr_block}", 4, 2)}"
 }
 
 resource "aws_subnet" "wordpress" {
@@ -38,6 +39,16 @@ resource "aws_subnet" "rds" {
   }
 }
 
+resource "aws_subnet" "elb" {
+  vpc_id = "${aws_vpc.wordpress.id}"
+  cidr_block = "${local.elb_cidr}"
+  availability_zone = "${local.wordpress_infra_az}"
+
+  tags {
+    Name = "ELBSubnet"
+    Group = "Intigral"
+  }
+}
 resource "aws_internet_gateway" "wordpress" {
   vpc_id = "${aws_vpc.wordpress.id}"
 
