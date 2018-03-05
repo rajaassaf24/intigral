@@ -1,0 +1,22 @@
+---
+- name: Configure wordpress instances
+
+  hosts: all
+  vars:
+    ansible_ssh_user: admin
+  become: true
+  pre_tasks:
+  - name: update apt
+    apt:
+       update_cache: yes
+    changed_when: false
+
+  - name: install nginx using apt-get
+    apt:
+       name: nginx
+       state: latest
+  
+  roles:
+    - role: intigral.wordpress
+      tags: ["role::intigral.wordpress"]
+
