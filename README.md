@@ -26,4 +26,6 @@ Run terraform
 
 Ansible command to run
 
-ansible-playbook -i inventory/ec2.py --vault-password-file=<path to vault password> wordpress.yml
+BEFORE YOU RUN THE ANSIBLE PLAYBOOK REPLACE DB_HOST VALUE IN roles/intigral.wordpress/template/config-sample.php with the rds endpoint outputed by terraform file ansible.tf
+
+ansible-playbook -i inventory/ec2.py --vault-password-file="path to vault password" wordpress.yml
