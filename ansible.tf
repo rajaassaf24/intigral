@@ -12,3 +12,12 @@ resource "null_resource" "wordpress" {
 output "wordpress" {
   value = ["${null_resource.wordpress.*.triggers}"]
 }
+
+resource "null_resource" "rds" {
+  triggers {
+    endpoint = "${aws_db_instance.rds.endpoint}"
+}
+}
+output "rds" {
+  value = ["${null_resource.rds.*.triggers}"]
+}
