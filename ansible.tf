@@ -16,8 +16,17 @@ output "wordpress" {
 resource "null_resource" "rds" {
   triggers {
     endpoint = "${aws_db_instance.rds.endpoint}"
-}
+  }
 }
 output "rds" {
   value = ["${null_resource.rds.*.triggers}"]
+}
+
+resource "null_resource" "elb" {
+  triggers {
+    DNS = "${aws_elb.wordpress.dns_name}"
+  }
+}
+output "elb" {
+   value = ["${null_resource.elb.*.triggers}"]
 }
