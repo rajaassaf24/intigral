@@ -6,10 +6,30 @@
     ansible_ssh_user: admin
   become: true
   pre_tasks:
+  - name: get php7 package repository
+    shell: sudo wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
+  
+  - name: enable repository
+    shell: sudo sh -c 'echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list'
+
   - name: update apt
     apt:
        update_cache: yes
     changed_when: false
+  - name: install all pre-requisite software
+    apt: name={{item}} state=installed
+    with_items:
+         - php7.1-common
+         - php7.1-readline
+         - php7.1-fpm
+         - php7.1-cli
+         - php7.1-gd
+         - php7.1-mysql
+         - php7.1-mcrypt
+         - php7.1-curl
+         - php7.1-mbstring
+         - php7.1-opcache
+         - php7.1-json
 
   - name: install nginx using apt-get
     apt:
