@@ -1,0 +1,46 @@
+---
+- name: create directoy if not available
+  file:
+    path: "{{ wordpress_dir }}"
+    state: directory
+    owner: admin
+    group: admin
+    mode: 0755
+
+- name: get wordpress
+  get_url:
+    url: "{{ wordpress_url }}"
+    dest: "{{ wordpress_download_dir }}"
+
+- name: unarchive wordpress
+  unarchive:
+    src: "{{ wordpress_download_dir }}/{{ wordpress_pkg }}"
+    dest: "{{ wordpress_dir }}/"
+    remote_src: yes
+    extra_opts: "--strip=1"
+
+- name: copy wordpress nginx config
+  copy:
+    src: templates/wordpress
+    dest: /etc/nginx/sites-available/
+    owner: admin
+    group: admin
+    mode: 0544
+
+- name: create symlink for the conf
+  file:
+    src: /etc/nginx/sites-available/wordpress
+    dest: /etc/nginx/sites-enabled/wordpress
+    owner: admin
+    group: admin
+    state: link
+
+- name: remove nginx default conf
+  file:
+   path: /etc/nginx/sites-enabled/default
+   state: absent
+
+- name: restart nginx service
+  service:
+    name: nginx
+    state: restarted
