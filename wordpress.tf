@@ -53,9 +53,18 @@ resource "aws_security_group_rule" "wordpress_https_in" {
   to_port = 443
   cidr_blocks = ["${var.cidr_all}"]
 }
+
+resource "aws_security_group_rule" "wordpress_ssh_in" {
+  security_group_id = "${aws_security_group.wordpress.id}"
+  type = "ingress"
+  protocol = "tcp"
+  from_port = 22
+  to_port = 22
+  cidr_blocks = ["${var.cidr_all}"]
+}
 resource "aws_instance" "wordpress" {
   count = "${var.count_wordpress}"
-  ami = "ami-638b6375"
+  ami = "ami-0dc82b70"
   associate_public_ip_address = "true"
   availability_zone = "${local.wordpress_infra_az}"
   instance_type = "t2.micro"
@@ -64,7 +73,7 @@ resource "aws_instance" "wordpress" {
   subnet_id = "${aws_subnet.wordpress.id}"
 
   tags {
-    Name = "WordpressEC2"
+    Name = "WordpressEC2-${count.index}"
     Group = "Integral"
   }
 }
