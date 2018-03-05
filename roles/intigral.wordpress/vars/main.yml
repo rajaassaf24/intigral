@@ -1,4 +1,4 @@
-wordpress_dir: /var/www/html/
+wordpress_dir: /var/www/html/wordpress/
 wordpress_download_dir : /tmp/
 wordpress_version: "4.9.4"
 wordpress_url: "https://wordpress.org/wordpress-{{wordpress_version}}.tar.gz"
