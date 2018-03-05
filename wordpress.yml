@@ -4,6 +4,8 @@
   hosts: all
   vars:
     ansible_ssh_user: admin
+  vars_files:
+    - vars/vault.yml
   become: true
   pre_tasks:
   - name: get php7 package repository
@@ -38,5 +40,6 @@
   
   roles:
     - role: intigral.wordpress
+      mysql_password: "{{_vault_mysql_password}}"
       tags: ["role::intigral.wordpress"]
 
